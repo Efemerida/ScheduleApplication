@@ -1,6 +1,13 @@
 package com.example.scheduleapplication.entites;
 
 
+import androidx.room.AutoMigration;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +21,34 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Day implements Serializable {
-    private String nameDay;
-    private String date;
-    private List<Lesson> lessons = new ArrayList<>();
+@Setter
+@Getter
+@Entity
 
+public class Day implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id = 0;
+
+    @ColumnInfo(name="name")
+    private String nameDay;
+
+    @ColumnInfo(name = "date")
+    private String date;
+
+    @ColumnInfo(name = "date_of_added")
+    private String dateOfAdded;
+
+    @Ignore
+    private final List<Lesson> lessons = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNameDay() {
         return nameDay;
@@ -39,4 +69,13 @@ public class Day implements Serializable {
     public List<Lesson> getLessons() {
         return lessons;
     }
+
+    public String getDateOfAdded() {
+        return dateOfAdded;
+    }
+
+    public void setDateOfAdded(String dateOfAdded) {
+        this.dateOfAdded = dateOfAdded;
+    }
 }
+

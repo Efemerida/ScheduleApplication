@@ -1,5 +1,9 @@
 package com.example.scheduleapplication.entites;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,15 +13,38 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity(foreignKeys = {@ForeignKey(
+        entity = Day.class,
+        parentColumns = "id",
+        childColumns = "idDay",
+        onDelete = ForeignKey.CASCADE)})
 public class Lesson {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String time;
     private String office;
     private String officeM2;
     private String course;
     private String teacher;
     private String type;
+    private int idDay;
 
+    public int getIdDay() {
+        return idDay;
+    }
+
+    public void setIdDay(int idDay) {
+        this.idDay = idDay;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTime() {
         return time;

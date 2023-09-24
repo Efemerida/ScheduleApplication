@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager2 = findViewById(R.id.viewPager);
 
-        viewPager2.setAdapter(new DayAdapterFragment(this));
+        viewPager2.setAdapter(new DayAdapterFragment(this, this));
 
 
 

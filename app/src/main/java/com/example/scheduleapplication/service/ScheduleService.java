@@ -1,9 +1,8 @@
 package com.example.scheduleapplication.service;
 
-import android.util.Log;
-
 import com.example.scheduleapplication.entites.Day;
 import com.example.scheduleapplication.entites.Lesson;
+import com.example.scheduleapplication.exceptions.NoConnectionException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,30 +10,41 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleService {
 
+    private static ScheduleService scheduleService;
 
+    private ScheduleService(){}
 
-    public static List<Day> getContent(List<Day> days){
+    public static ScheduleService initial(){
+        if(scheduleService==null){
+            scheduleService = new ScheduleService();
+        }
+        return scheduleService;
+    }
+
+    public List<Day> getContent(){
         Document doc = null;
         try {
             doc = Jsoup.connect("https://rasp.sstu.ru/rasp/group/14").get();
-            Log.d("myTag", doc.html());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new NoConnectionException();
         }
-        return getDays(doc, days);
+        return getDays(doc);
 
     }
 
 
-    private static List<Day> getDays(Document document, List<Day> daysArray){
+    private List<Day> getDays(Document document){
 
+        List<Day> daysList = new ArrayList<>();
 
         Elements calendar = document.select("div.calendar");
         Elements weeks =  calendar.select("div.week");
+
         for(Element element : weeks){
             Elements days = element.select("div.day");
             for(Element day: days){
@@ -44,7 +54,7 @@ public class ScheduleService {
                 Day dayTmp = new Day();
                 dayTmp.setNameDay(nameDay.substring(0,nameDay.length()-5));
                 dayTmp.setDate(nameDay.substring(dayTmp.getNameDay().length()));
-                int i = 0;
+
                 for(Element lesson: lessons){
                     Lesson tmpLesson = new Lesson();
                     if(lesson.select("div.lesson-name").isEmpty()){
@@ -59,11 +69,11 @@ public class ScheduleService {
                     dayTmp.getLessons().add(tmpLesson);
 
                 }
-                daysArray.add(dayTmp);
+                daysList.add(dayTmp);
             }
 
         }
-        return daysArray;
+        return daysList;
 
 
     }
