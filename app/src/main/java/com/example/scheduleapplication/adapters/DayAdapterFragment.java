@@ -2,6 +2,7 @@ package com.example.scheduleapplication.adapters;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,8 +10,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.scheduleapplication.entites.Day;
+import com.example.scheduleapplication.exceptions.NoConnectionException;
 import com.example.scheduleapplication.fragments.PageFragment;
 import com.example.scheduleapplication.service.DataService;
+import com.example.scheduleapplication.service.DayService;
 import com.example.scheduleapplication.service.ScheduleService;
 
 import java.util.ArrayList;
@@ -24,9 +27,23 @@ public class DayAdapterFragment  extends FragmentStateAdapter {
         super(fragmentActivity);
         Runnable runnable = () -> {
             DataService dataService = DataService.initial(context);
-
+            DayService dayService = new DayService();
+            dayService.setDays(days);
+            Log.d("taggg",days.toString());
             if(!dataService.isActual()){
-                dataService.loadData();
+                try {
+                    dataService.loadData();
+                    fragmentActivity.runOnUiThread(() ->{
+                        Toast toast = Toast.makeText(context, "Обновление данных", Toast.LENGTH_LONG);
+                        toast.show();
+                    });
+
+                }catch (NoConnectionException ex){
+                    fragmentActivity.runOnUiThread(() -> {
+                        Toast toast = Toast.makeText(context, "Нет подключение к сети", Toast.LENGTH_LONG);
+                        toast.show();
+                    });
+                }
             }
         };
         Thread thread = new Thread(runnable);
@@ -37,7 +54,7 @@ public class DayAdapterFragment  extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return new PageFragment(position);
+        return new PageFragment(position, days);
     }
 
     @Override

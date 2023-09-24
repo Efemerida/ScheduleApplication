@@ -57,6 +57,9 @@ public class DataService {
         try {
             Date oldDate = simpleDateFormat.parse(day.getDateOfAdded());
             Date nowDate = new Date();
+            Log.d("taggg", oldDate.toString());
+            Log.d("taggg", nowDate.toString());
+            Log.d("taggg", String.valueOf(nowDate.getTime() - oldDate.getTime()));
             if(nowDate.getTime() - oldDate.getTime() >= 28800000){
                 return false;
             }
@@ -71,6 +74,7 @@ public class DataService {
         this.deleteAll();
 
         String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
+        Log.d("taggg", "day addded " + date.toString());
 
         for(Day day: days) {
 
