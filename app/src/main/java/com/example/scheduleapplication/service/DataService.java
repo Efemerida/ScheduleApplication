@@ -74,7 +74,6 @@ public class DataService {
         this.deleteAll();
 
         String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
-        Log.d("taggg", "day addded " + date.toString());
 
         for(Day day: days) {
 

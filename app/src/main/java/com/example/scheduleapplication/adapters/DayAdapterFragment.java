@@ -1,14 +1,18 @@
 package com.example.scheduleapplication.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.adapter.FragmentViewHolder;
 
+import com.example.scheduleapplication.MainActivity;
 import com.example.scheduleapplication.entites.Day;
 import com.example.scheduleapplication.exceptions.NoConnectionException;
 import com.example.scheduleapplication.fragments.PageFragment;
@@ -23,8 +27,11 @@ public class DayAdapterFragment  extends FragmentStateAdapter {
 
     List<Day> days = new ArrayList<>();
 
+
+
     public DayAdapterFragment(FragmentActivity fragmentActivity, Context context){
         super(fragmentActivity);
+
         Runnable runnable = () -> {
             DataService dataService = DataService.initial(context);
             DayService dayService = new DayService();

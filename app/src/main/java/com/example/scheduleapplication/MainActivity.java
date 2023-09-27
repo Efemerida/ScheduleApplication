@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,7 +28,9 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     ViewPager2 viewPager2;
-    RecyclerView recyclerView;
+    static RecyclerView recyclerView;
+
+    public static int positionCurrent = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +48,52 @@ public class MainActivity extends AppCompatActivity {
         DayService dayService = new DayService();
         dayService.setDays(days);
         Log.d("taggg", days.toString());
-
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable drawable = getResources().getDrawable(R.drawable.s_select_radius_border);
+        Drawable drawablePassive = getResources().getDrawable(R.drawable.select_radius_border);
         DayListAdapter.OnStateClickListener onStateClickListener = new DayListAdapter.OnStateClickListener() {
             @Override
             public void onStateClick(int position) {
                 Log.d("taggg", String.valueOf(position));
+
+                List<Object> objects = new ArrayList<>();
+                objects.add(1);
+                objects.add(recyclerView);
+
                 viewPager2.setCurrentItem(position);
+
+                if(positionCurrent!=-1){
+                    recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
+                }
+                recyclerView.getAdapter().notifyItemChanged(position, 1);
             }
         };
-
-        recyclerView.setAdapter(new DayListAdapter(this, days, dayAdapterFragment, onStateClickListener));
-
+        recyclerView.setAdapter(new DayListAdapter(this, days, dayAdapterFragment, onStateClickListener, drawable, drawablePassive));
         viewPager2.setAdapter(dayAdapterFragment);
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
 
+                if(positionCurrent!=-1){
+                    recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
+                }
+                recyclerView.getAdapter().notifyItemChanged(position, 1);
+
+                super.onPageSelected(position);
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        LocalDate date = LocalDate.now();
+        int position = date.getDayOfWeek().getValue()-1;
+        viewPager2.setCurrentItem(position);
+
+        recyclerView.getAdapter().notifyItemChanged(position, 1);
 
 
     }
