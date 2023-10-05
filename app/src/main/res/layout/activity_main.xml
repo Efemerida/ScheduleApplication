@@ -7,6 +7,18 @@
     android:background="#3E3D3D"
     tools:context=".MainActivity">
 
+    <ListView
+        android:id="@+id/list_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="67dp"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/viewPager"
+        app:layout_constraintEnd_toEndOf="@+id/day_list"
+        app:layout_constraintStart_toStartOf="@+id/day_list"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/day_list"
         android:layout_width="wrap_content"
@@ -28,5 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_list" />
+        app:layout_constraintTop_toBottomOf="@+id/day_list">
+
+    </androidx.viewpager2.widget.ViewPager2>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ package com.example.scheduleapplication.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scheduleapplication.MainActivity;
@@ -23,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.val;
+
 public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListHolder> {
 
     public interface OnStateClickListener{
@@ -32,13 +37,15 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
     private LayoutInflater inflater;
     private List<Day> days;
 
-    public int oldPosition = -1;
+    public int currentPosition = 0;
 
     private DayAdapterFragment dayAdapterFragment;
 
     private final OnStateClickListener onStateClickListener;
     Drawable active;
     Drawable passive;
+    Context context;
+
 
 
     public DayListAdapter(Context context, List<Day> days, DayAdapterFragment dayAdapterFragment, OnStateClickListener onStateClickListener, Drawable active, Drawable passive) {
@@ -48,6 +55,7 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
         this.onStateClickListener = onStateClickListener;
         this.active = active;
         this.passive = passive;
+        this.context = context;
     }
 
 
@@ -67,14 +75,20 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
 
             int code = (int)payloads.get(0);
 
+            int positionActive = MainActivity.positionCurrent;
 
-            if(code==1){
-                holder.itemView.setBackground(active);
+
+            if(code == 1){
+                Log.d("taggg", "code 1 and pos " + position);
+                GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
+                gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_selected));
                 MainActivity.positionCurrent = position;
             }
-            else if(code==0){
-                Log.d("taggg", "code is ");
-                holder.itemView.setBackground(passive);
+            else if(positionActive!=position || code == 0){
+                Log.d("taggg", "code 0 and pos " + position);
+                GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
+                gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_standart));
+
             }
 
         }
@@ -86,8 +100,18 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
     @Override
     public void onBindViewHolder(@NonNull DayListHolder holder, int position) {
 
+        int positionActive = MainActivity.positionCurrent;
 
-            Day day = days.get(position);
+        if(positionActive != position){
+            GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
+            gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_standart));
+        }
+        if(positionActive==position){
+            GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
+            gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_selected));
+        }
+
+        Day day = days.get(position);
             holder.name.setText(day.getNameDay());
             holder.date.setText(day.getDate());
             int s = position;

@@ -1,6 +1,7 @@
 package com.example.scheduleapplication.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         holder.office.setText(lesson.getOffice());
         holder.teacher.setText(lesson.getTeacher());
         holder.time.setText(lesson.getTime());
+        holder.type.setText(lesson.getType());
+
     }
 
     @Override
@@ -58,7 +61,6 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             course = (TextView) view.findViewById(R.id.name);
             teacher = (TextView) view.findViewById(R.id.teacher);
             type = (TextView) view.findViewById(R.id.type);
-
         }
     }
 

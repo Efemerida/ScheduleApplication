@@ -1,16 +1,25 @@
 package com.example.scheduleapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.example.scheduleapplication.adapters.DayAdapterFragment;
 import com.example.scheduleapplication.adapters.DayListAdapter;
+import com.example.scheduleapplication.adapters.ListAdapterTwo;
 import com.example.scheduleapplication.entites.Day;
 import com.example.scheduleapplication.entites.Lesson;
 import com.example.scheduleapplication.service.DayService;
@@ -30,15 +39,28 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     static RecyclerView recyclerView;
 
-    public static int positionCurrent = -1;
+    ListView listView;
 
+    public static int positionCurrent = 0;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LocalDate date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = LocalDate.now();
+        }
+
+        int position = date.getDayOfWeek().getValue()-1;
+        positionCurrent = position;
+
+
         viewPager2 = findViewById(R.id.viewPager);
         recyclerView = findViewById(R.id.day_list);
+        listView = findViewById(R.id.list_list);
 
         List<Day> days = new ArrayList<>();
 
@@ -50,34 +72,35 @@ public class MainActivity extends AppCompatActivity {
         Log.d("taggg", days.toString());
         @SuppressLint("UseCompatLoadingForDrawables") Drawable drawable = getResources().getDrawable(R.drawable.s_select_radius_border);
         Drawable drawablePassive = getResources().getDrawable(R.drawable.select_radius_border);
+
+        DayListAdapter dayListAdapter;
         DayListAdapter.OnStateClickListener onStateClickListener = new DayListAdapter.OnStateClickListener() {
             @Override
             public void onStateClick(int position) {
                 Log.d("taggg", String.valueOf(position));
-
-                List<Object> objects = new ArrayList<>();
-                objects.add(1);
-                objects.add(recyclerView);
-
                 viewPager2.setCurrentItem(position);
-
-                if(positionCurrent!=-1){
-                    recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
-                }
                 recyclerView.getAdapter().notifyItemChanged(position, 1);
+                recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);                positionCurrent = position;
+                positionCurrent = position;
+
+
+
             }
         };
-        recyclerView.setAdapter(new DayListAdapter(this, days, dayAdapterFragment, onStateClickListener, drawable, drawablePassive));
+        dayListAdapter = new DayListAdapter(this, days, dayAdapterFragment, onStateClickListener, drawable, drawablePassive);
+        recyclerView.setAdapter(dayListAdapter);
         viewPager2.setAdapter(dayAdapterFragment);
+        viewPager2.setCurrentItem(positionCurrent);
+        recyclerView.offsetChildrenHorizontal(14);
+        listView.setAdapter(new ListAdapterTwo(this,R.layout.day_fragment, days));
+
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
 
-                if(positionCurrent!=-1){
-                    recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
-                }
                 recyclerView.getAdapter().notifyItemChanged(position, 1);
-
+                recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);                positionCurrent = position;
+                positionCurrent = position;
                 super.onPageSelected(position);
             }
         });
@@ -89,10 +112,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        LocalDate date = LocalDate.now();
-        int position = date.getDayOfWeek().getValue()-1;
-        viewPager2.setCurrentItem(position);
+        LocalDate date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = LocalDate.now();
+        }
 
+        int position = date.getDayOfWeek().getValue()-1;
+        positionCurrent = position;
+        viewPager2.setCurrentItem(position);
         recyclerView.getAdapter().notifyItemChanged(position, 1);
 
 

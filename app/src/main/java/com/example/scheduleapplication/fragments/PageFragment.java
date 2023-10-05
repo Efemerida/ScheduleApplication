@@ -51,8 +51,16 @@ public class PageFragment extends Fragment {
 
         Runnable runnable = () -> {
             arrayList.addAll(dataService.getAll());
-
-            lessons.addAll(arrayList.get(position).getLessons());
+            try{
+                lessons.addAll(arrayList.get(position).getLessons());
+            }
+            catch (Exception ex){
+                try {
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
             recyclerView.post(lessonAdapter::notifyDataSetChanged);
 

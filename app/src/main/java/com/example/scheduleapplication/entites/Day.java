@@ -42,6 +42,9 @@ public class Day implements Serializable {
     @Ignore
     private final List<Lesson> lessons = new ArrayList<>();
 
+    @Ignore
+    public boolean isActive = false;
+
     public int getId() {
         return id;
     }
