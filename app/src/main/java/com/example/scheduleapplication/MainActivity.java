@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
 
     public static int positionCurrent = 0;
-
+    public static int currentDay = 0;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         int position = date.getDayOfWeek().getValue()-1;
         positionCurrent = position;
+        currentDay = position;
 
 
         viewPager2 = findViewById(R.id.viewPager);
@@ -79,8 +80,13 @@ public class MainActivity extends AppCompatActivity {
             public void onStateClick(int position) {
                 Log.d("taggg", String.valueOf(position));
                 viewPager2.setCurrentItem(position);
+                if(currentDay == positionCurrent  && position!=currentDay){
+                    recyclerView.getAdapter().notifyItemChanged(positionCurrent, 3);
+                }
                 recyclerView.getAdapter().notifyItemChanged(position, 1);
-                recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);                positionCurrent = position;
+                recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
+                Log.d("taggg", "pos and pos "+ positionCurrent + " " + currentDay);
+
                 positionCurrent = position;
 
 
@@ -91,36 +97,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(dayListAdapter);
         viewPager2.setAdapter(dayAdapterFragment);
         viewPager2.setCurrentItem(positionCurrent);
+        recyclerView.getAdapter().notifyItemChanged(currentDay, 3);
         recyclerView.offsetChildrenHorizontal(14);
         listView.setAdapter(new ListAdapterTwo(this,R.layout.day_fragment, days));
 
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-
+                if(currentDay == positionCurrent && position!=currentDay){
+                    recyclerView.getAdapter().notifyItemChanged(positionCurrent, 3);
+                    Log.d("taggg", "GEREEE");
+                }
                 recyclerView.getAdapter().notifyItemChanged(position, 1);
-                recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);                positionCurrent = position;
+                recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
+
                 positionCurrent = position;
                 super.onPageSelected(position);
             }
         });
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        LocalDate date = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            date = LocalDate.now();
-        }
-
-        int position = date.getDayOfWeek().getValue()-1;
-        positionCurrent = position;
-        viewPager2.setCurrentItem(position);
-        recyclerView.getAdapter().notifyItemChanged(position, 1);
 
 
     }

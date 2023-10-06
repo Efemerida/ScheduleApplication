@@ -76,15 +76,20 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
             int code = (int)payloads.get(0);
 
             int positionActive = MainActivity.positionCurrent;
+            int current = MainActivity.currentDay;
 
 
             if(code == 1){
                 Log.d("taggg", "code 1 and pos " + position);
                 GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
                 gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_selected));
-                MainActivity.positionCurrent = position;
+
             }
-            else if(positionActive!=position || code == 0){
+            else if(code == 3){
+                GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
+                gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_current));
+            }
+            else if((positionActive!=position || code == 0) && (position!=current)){
                 Log.d("taggg", "code 0 and pos " + position);
                 GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
                 gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_standart));
@@ -101,15 +106,26 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
     public void onBindViewHolder(@NonNull DayListHolder holder, int position) {
 
         int positionActive = MainActivity.positionCurrent;
+        int currentDay = MainActivity.currentDay;
+
+
 
         if(positionActive != position){
             GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
             gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_standart));
+            Log.d("taggg", "list " + position + " " + currentDay);
+            if(position==currentDay){
+                gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_current));
+            }
+
+
         }
+
         if(positionActive==position){
             GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
             gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_selected));
         }
+
 
         Day day = days.get(position);
             holder.name.setText(day.getNameDay());
