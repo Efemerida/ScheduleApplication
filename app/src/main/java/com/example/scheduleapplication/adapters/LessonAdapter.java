@@ -1,7 +1,6 @@
 package com.example.scheduleapplication.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,12 +54,12 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
         public LessonViewHolder(@NonNull View view){
             super(view);
-            time=(TextView) view.findViewById(R.id.hour);
-            office= (TextView) view.findViewById(R.id.room);
-            officeM2 =(TextView) view.findViewById(R.id.room2);
-            course = (TextView) view.findViewById(R.id.name);
-            teacher = (TextView) view.findViewById(R.id.teacher);
-            type = (TextView) view.findViewById(R.id.type);
+            time=(TextView) view.findViewById(R.id.hour_1);
+            office= (TextView) view.findViewById(R.id.room_1);
+            officeM2 =(TextView) view.findViewById(R.id.room2_1);
+            course = (TextView) view.findViewById(R.id.name_1);
+            teacher = (TextView) view.findViewById(R.id.teacher_1);
+            type = (TextView) view.findViewById(R.id.type_1);
         }
     }
 

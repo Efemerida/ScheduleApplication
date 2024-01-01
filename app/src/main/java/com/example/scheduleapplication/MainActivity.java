@@ -2,6 +2,7 @@ package com.example.scheduleapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -23,6 +24,7 @@ import com.example.scheduleapplication.adapters.ListAdapterTwo;
 import com.example.scheduleapplication.entites.Day;
 import com.example.scheduleapplication.entites.Lesson;
 import com.example.scheduleapplication.service.DayService;
+import com.example.scheduleapplication.service.GroupService;
 import com.example.scheduleapplication.service.ScheduleService;
 
 import java.time.DayOfWeek;
@@ -47,7 +49,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_navigation);
+
+        ////////////////////////////////////////
+        //Test
+        //////////////////////////////
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GroupService.getAllGroup();
+            }
+        });
+        thread.start();
+
+        /////////////////////////////////
+
+//        FragmentContainerView fragmentContainerView = findViewById(R.id.rasp_container);
+//        fragmentContainerView.
 
         LocalDate date = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -55,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         int position = date.getDayOfWeek().getValue()-1;
+        if(date.getDayOfWeek().getValue()==7) position+=1;
         positionCurrent = position;
         currentDay = position;
 
@@ -106,10 +125,18 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if(currentDay == positionCurrent && position!=currentDay){
                     recyclerView.getAdapter().notifyItemChanged(positionCurrent, 3);
-                    Log.d("taggg", "GEREEE");
                 }
                 recyclerView.getAdapter().notifyItemChanged(position, 1);
                 recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
+
+//                LocalDate localDate = LocalDate.now();
+//                DayOfWeek day = localDate.getDayOfWeek();
+//                Log.d("taggg", "day is " + day.getValue());
+
+                if(position>=6 && positionCurrent<6)
+                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+                if(position<=5 && positionCurrent>=6)
+                    recyclerView.smoothScrollToPosition(0);
 
                 positionCurrent = position;
                 super.onPageSelected(position);

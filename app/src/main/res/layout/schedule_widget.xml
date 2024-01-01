@@ -1,0 +1,283 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.ScheduleApplication.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.ScheduleApplication.AppWidgetContainer">
+
+    <TextView
+        android:id="@+id/tv_day_widjet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:text="Понидельник" />
+
+    <TextView
+        android:id="@+id/tv_date_widjet"
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="177dp"
+        android:layout_marginEnd="55dp"
+        android:layout_toEndOf="@+id/tv_day_widjet"
+        android:text="01.12" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_1"
+        android:layout_width="495dp"
+        android:layout_height="124dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/layout_border"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/hour_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/room_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/hour_1"
+            app:layout_constraintStart_toStartOf="@+id/hour_1"
+            app:layout_constraintTop_toBottomOf="@+id/hour_1" />
+
+        <TextView
+            android:id="@+id/name_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/room_1"
+            app:layout_constraintStart_toStartOf="@+id/room_1"
+            app:layout_constraintTop_toBottomOf="@+id/room_1" />
+
+        <TextView
+            android:id="@+id/room2_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/name_1"
+            app:layout_constraintStart_toStartOf="@+id/name_1"
+            app:layout_constraintTop_toBottomOf="@+id/name_1" />
+
+        <TextView
+            android:id="@+id/type_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/room2_1"
+            app:layout_constraintStart_toStartOf="@+id/room2_1"
+            app:layout_constraintTop_toBottomOf="@+id/room2_1" />
+
+        <TextView
+            android:id="@+id/teacher_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/type_1"
+            app:layout_constraintStart_toStartOf="@+id/type_1"
+            app:layout_constraintTop_toBottomOf="@+id/type_1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_2"
+        android:layout_width="395dp"
+        android:layout_height="124dp"
+        android:layout_alignStart="@+id/list_3"
+        android:layout_alignEnd="@+id/list_1"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="245dp"
+        android:layout_marginEnd="49dp"
+        android:background="@drawable/layout_border"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/hour_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/room_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/hour_2"
+            app:layout_constraintStart_toStartOf="@+id/hour_2"
+            app:layout_constraintTop_toBottomOf="@+id/hour_2" />
+
+        <TextView
+            android:id="@+id/name_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/room_2"
+            app:layout_constraintStart_toStartOf="@+id/room_2"
+            app:layout_constraintTop_toBottomOf="@+id/room_2" />
+
+        <TextView
+            android:id="@+id/room2_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/name_2"
+            app:layout_constraintStart_toStartOf="@+id/name_2"
+            app:layout_constraintTop_toBottomOf="@+id/name_2" />
+
+        <TextView
+            android:id="@+id/type_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/room2_2"
+            app:layout_constraintStart_toStartOf="@+id/room2_2"
+            app:layout_constraintTop_toBottomOf="@+id/room2_2" />
+
+        <TextView
+            android:id="@+id/teacher_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/type_2"
+            app:layout_constraintStart_toStartOf="@+id/type_2"
+            app:layout_constraintTop_toBottomOf="@+id/type_2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_4"
+        android:layout_width="395dp"
+        android:layout_height="124dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="583dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/layout_border"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/hour_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/room_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/hour_4"
+            app:layout_constraintStart_toStartOf="@+id/hour_4"
+            app:layout_constraintTop_toBottomOf="@+id/hour_4" />
+
+        <TextView
+            android:id="@+id/name_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/room_4"
+            app:layout_constraintStart_toStartOf="@+id/room_4"
+            app:layout_constraintTop_toBottomOf="@+id/room_4" />
+
+        <TextView
+            android:id="@+id/room2_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/name_4"
+            app:layout_constraintStart_toStartOf="@+id/name_4"
+            app:layout_constraintTop_toBottomOf="@+id/name_4" />
+
+        <TextView
+            android:id="@+id/type_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/room2_4"
+            app:layout_constraintStart_toStartOf="@+id/room2_4"
+            app:layout_constraintTop_toBottomOf="@+id/room2_4" />
+
+        <TextView
+            android:id="@+id/teacher_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/type_4"
+            app:layout_constraintStart_toStartOf="@+id/type_4"
+            app:layout_constraintTop_toBottomOf="@+id/type_4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_3"
+        android:layout_width="395dp"
+        android:layout_height="124dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="414dp"
+        android:layout_marginEnd="29dp"
+        android:background="@drawable/layout_border"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/hour_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/room_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/hour_3"
+            app:layout_constraintStart_toStartOf="@+id/hour_3"
+            app:layout_constraintTop_toBottomOf="@+id/hour_3" />
+
+        <TextView
+            android:id="@+id/name_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/room_3"
+            app:layout_constraintStart_toStartOf="@+id/room_3"
+            app:layout_constraintTop_toBottomOf="@+id/room_3" />
+
+        <TextView
+            android:id="@+id/room2_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/name_3"
+            app:layout_constraintStart_toStartOf="@+id/name_3"
+            app:layout_constraintTop_toBottomOf="@+id/name_3" />
+
+        <TextView
+            android:id="@+id/type_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/room2_3"
+            app:layout_constraintStart_toStartOf="@+id/room2_3"
+            app:layout_constraintTop_toBottomOf="@+id/room2_3" />
+
+        <TextView
+            android:id="@+id/teacher_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/type_3"
+            app:layout_constraintStart_toStartOf="@+id/type_3"
+            app:layout_constraintTop_toBottomOf="@+id/type_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

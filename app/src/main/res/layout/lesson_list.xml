@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
+    android:id="@+id/list_1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/layout_border"
@@ -11,7 +11,7 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/hour"
+        android:id="@+id/hour_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,44 +19,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/room"
+        android:id="@+id/room_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/hour"
-        app:layout_constraintStart_toStartOf="@+id/hour"
-        app:layout_constraintTop_toBottomOf="@+id/hour" />
+        app:layout_constraintEnd_toEndOf="@+id/hour_1"
+        app:layout_constraintStart_toStartOf="@+id/hour_1"
+        app:layout_constraintTop_toBottomOf="@+id/hour_1" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/name_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/room"
-        app:layout_constraintStart_toStartOf="@+id/room"
-        app:layout_constraintTop_toBottomOf="@+id/room" />
+        app:layout_constraintEnd_toEndOf="@+id/room_1"
+        app:layout_constraintStart_toStartOf="@+id/room_1"
+        app:layout_constraintTop_toBottomOf="@+id/room_1" />
 
     <TextView
-        android:id="@+id/room2"
+        android:id="@+id/room2_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintEnd_toEndOf="@+id/name_1"
+        app:layout_constraintStart_toStartOf="@+id/name_1"
+        app:layout_constraintTop_toBottomOf="@+id/name_1" />
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/type_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/room2"
-        app:layout_constraintStart_toStartOf="@+id/room2"
-        app:layout_constraintTop_toBottomOf="@+id/room2" />
+        app:layout_constraintEnd_toEndOf="@+id/room2_1"
+        app:layout_constraintStart_toStartOf="@+id/room2_1"
+        app:layout_constraintTop_toBottomOf="@+id/room2_1" />
 
     <TextView
-        android:id="@+id/teacher"
+        android:id="@+id/teacher_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/type"
-        app:layout_constraintStart_toStartOf="@+id/type"
-        app:layout_constraintTop_toBottomOf="@+id/type" />
+        app:layout_constraintEnd_toEndOf="@+id/type_1"
+        app:layout_constraintStart_toStartOf="@+id/type_1"
+        app:layout_constraintTop_toBottomOf="@+id/type_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

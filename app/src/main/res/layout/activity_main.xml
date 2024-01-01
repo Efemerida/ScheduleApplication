@@ -16,8 +16,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="@+id/day_list"
+        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="@+id/day_list"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/day_list"
@@ -43,4 +45,5 @@
         app:layout_constraintTop_toBottomOf="@+id/day_list">
 
     </androidx.viewpager2.widget.ViewPager2>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
