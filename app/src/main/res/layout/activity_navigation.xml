@@ -5,24 +5,29 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/rasp_container"
-        android:layout_width="393dp"
-        android:layout_height="664dp"
-        android:layout_marginBottom="606dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#D50000"
         app:layout_constraintBottom_toTopOf="@+id/b_nav_rasp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/b_nav_rasp"
+        style="@style/Button.White"
         android:layout_width="0dp"
         android:layout_height="69dp"
+        android:background="#FFFFFF"
         android:text="Расписание"
+        android:textColor="#000000"
+        android:theme="@style/Button.White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/b_nav_set"
         app:layout_constraintHorizontal_bias="0.0"
@@ -30,10 +35,12 @@
 
     <Button
         android:id="@+id/b_nav_set"
-        android:layout_width="212dp"
+        android:layout_width="0dp"
         android:layout_height="69dp"
+        android:background="#FFFFFF"
         android:text="Настройки"
+        android:textColor="#0C0C0C"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

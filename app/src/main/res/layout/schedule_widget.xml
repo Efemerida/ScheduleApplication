@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.ScheduleApplication.AppWidget.Container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/Theme.ScheduleApplication.AppWidgetContainer">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_day_widjet"

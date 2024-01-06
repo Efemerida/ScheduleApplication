@@ -38,7 +38,7 @@ public class DataService {
                 .build();
         dayDao = appDatabase.dayDao();
         lessonDao = appDatabase.lessonDao();
-        scheduleService = ScheduleService.initial();
+        scheduleService = ScheduleService.initial(context);
     }
 
     public void loadData(){
@@ -74,6 +74,9 @@ public class DataService {
         this.deleteAll();
 
         String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
+
+        dayDao.deleteAll();
+        lessonDao.deleteAll();
 
         for(Day day: days) {
 

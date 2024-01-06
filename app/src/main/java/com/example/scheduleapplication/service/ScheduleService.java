@@ -1,5 +1,8 @@
 package com.example.scheduleapplication.service;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.example.scheduleapplication.entites.Day;
 import com.example.scheduleapplication.entites.Lesson;
 import com.example.scheduleapplication.exceptions.NoConnectionException;
@@ -10,30 +13,43 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ScheduleService {
 
     private static ScheduleService scheduleService;
 
-    private ScheduleService(){}
+    public static String defaultLink = "/rasp/group/14";
+    private static String BASE_LINK = "https://rasp.sstu.ru";
 
-    public static ScheduleService initial(){
+    private GroupService groupService;
+
+
+    private ScheduleService(Context context){groupService = new GroupService(context);}
+
+    public static ScheduleService initial(Context context){
         if(scheduleService==null){
-            scheduleService = new ScheduleService();
+            scheduleService = new ScheduleService(context);
         }
         return scheduleService;
     }
 
     public List<Day> getContent(){
-        Document doc = null;
+        Document doc;
         try {
-            doc = Jsoup.connect("https://rasp.sstu.ru/rasp/group/14").get();
+            String link = "";
+            String linkTmp = groupService.getLink();
+            if(linkTmp==null) link = BASE_LINK + defaultLink;
+            else link = BASE_LINK + linkTmp;
+            Log.d("taggg", linkTmp + " " + link);
+            doc = Jsoup.connect(link).get();
         } catch (IOException e) {
             throw new NoConnectionException();
         }
-        return getDays(doc);
+        return insertIntoDate(getDays(doc));
 
     }
 
@@ -71,12 +87,50 @@ public class ScheduleService {
                 }
                 daysList.add(dayTmp);
             }
-
         }
+
         return daysList;
-
-
     }
+
+    private List<Day> insertIntoDate(List<Day> days) {
+        List<Day> daysResult = new ArrayList<>();
+        int firstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
+
+        LocalDate date = LocalDate.now();
+        if(firstDayOfWeek<date.getDayOfMonth()){
+            while (date.getDayOfMonth()!=firstDayOfWeek) date = date.minusDays(1);
+        }
+        else while (date.getDayOfMonth()!=firstDayOfWeek) date = date.plusDays(1);
+
+        String month = String.valueOf(date.getMonthValue());
+        if(date.getMonthValue()<10) month = "0" + month;
+
+        boolean flag = false;
+        int j = 1;
+        for (int i = 0; i < 12; i++) {
+            if (!flag) {
+                String day = String.valueOf(date.getDayOfMonth());
+                if(date.getDayOfMonth() < 10) day = "0" + day;
+                String stringDate = day + "." + month;
+                if (stringDate.equals(days.get(0).getDate())) {
+                    flag = true;
+                    daysResult.add(days.get(0));
+                } else {
+                    date = date.plusDays(1);
+                    daysResult.add(new Day());
+                }
+            }
+            else {
+                daysResult.add(days.get(j));
+                j++;
+            }
+        }
+        return daysResult;
+    }
+
+
+
+
 
 
 }

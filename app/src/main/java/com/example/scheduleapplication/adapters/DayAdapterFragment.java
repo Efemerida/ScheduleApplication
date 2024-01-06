@@ -36,7 +36,6 @@ public class DayAdapterFragment  extends FragmentStateAdapter {
             DataService dataService = DataService.initial(context);
             DayService dayService = new DayService();
             dayService.setDays(days);
-            Log.d("taggg",days.toString());
             if(!dataService.isActual()){
                 try {
                     dataService.loadData();

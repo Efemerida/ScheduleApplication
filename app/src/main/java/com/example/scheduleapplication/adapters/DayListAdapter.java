@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scheduleapplication.MainActivity;
 import com.example.scheduleapplication.R;
 import com.example.scheduleapplication.entites.Day;
+import com.example.scheduleapplication.fragments.MainFragment;
 import com.example.scheduleapplication.fragments.PageFragment;
 
 import java.util.ArrayList;
@@ -75,8 +76,8 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
 
             int code = (int)payloads.get(0);
 
-            int positionActive = MainActivity.positionCurrent;
-            int current = MainActivity.currentDay;
+            int positionActive = MainFragment.positionCurrent;
+            int current = MainFragment.currentDay;
 
 
             if(code == 1){
@@ -90,7 +91,6 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
                 gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_current));
             }
             else if((positionActive!=position || code == 0) && (position!=current)){
-                Log.d("taggg", "code 0 and pos " + position);
                 GradientDrawable gradientDrawable = (GradientDrawable) holder.itemView.getBackground();
                 gradientDrawable.setColor(ContextCompat.getColor(context, R.color.bg_standart));
 
@@ -105,8 +105,8 @@ public class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayListH
     @Override
     public void onBindViewHolder(@NonNull DayListHolder holder, int position) {
 
-        int positionActive = MainActivity.positionCurrent;
-        int currentDay = MainActivity.currentDay;
+        int positionActive = MainFragment.positionCurrent;
+        int currentDay = MainFragment.currentDay;
 
 
 
