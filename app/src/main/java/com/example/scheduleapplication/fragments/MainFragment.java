@@ -4,10 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +17,6 @@ import com.example.scheduleapplication.MainActivity;
 import com.example.scheduleapplication.R;
 import com.example.scheduleapplication.adapters.DayAdapterFragment;
 import com.example.scheduleapplication.adapters.DayListAdapter;
-import com.example.scheduleapplication.adapters.ListAdapterTwo;
 import com.example.scheduleapplication.entites.Day;
 import com.example.scheduleapplication.service.DayService;
 
@@ -55,6 +51,7 @@ public class MainFragment extends Fragment {
             date = LocalDate.now();
         }
 
+        assert date != null;
         int position = date.getDayOfWeek().getValue()-1;
         if(date.getDayOfWeek().getValue()==7) position=0;
         positionCurrent = position;
@@ -72,7 +69,7 @@ public class MainFragment extends Fragment {
         dayService.setDays(days);
 
         @SuppressLint("UseCompatLoadingForDrawables") Drawable drawable = getResources().getDrawable(R.drawable.s_select_radius_border);
-        Drawable drawablePassive = getResources().getDrawable(R.drawable.select_radius_border);
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable drawablePassive = getResources().getDrawable(R.drawable.select_radius_border);
 
         DayListAdapter dayListAdapter;
 
@@ -112,8 +109,6 @@ public class MainFragment extends Fragment {
                 recyclerView.getAdapter().notifyItemChanged(positionCurrent, 0);
 
                 LocalDate localDate = LocalDate.now();
-                DayOfWeek day = localDate.getDayOfWeek();
-
                 if(position>=6)
                     recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount()-1);
                 if(position<=5)

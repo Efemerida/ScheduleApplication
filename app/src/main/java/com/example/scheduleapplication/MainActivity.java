@@ -2,23 +2,16 @@ package com.example.scheduleapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import com.example.scheduleapplication.fragments.MainFragment;
-import com.example.scheduleapplication.fragments.PageFragment;
 import com.example.scheduleapplication.fragments.SettingsFragment;
-import com.example.scheduleapplication.service.GroupService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
         MainActivity.mainActivity = this;
 
+        View content = findViewById(R.id.container);
+
+
+
         Fragment mainFragment = new MainFragment();
         Fragment settFragment = new SettingsFragment(this);
 
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Button sett = findViewById(R.id.b_nav_set);
 
         sett.setOnClickListener(view -> {
-            if(is_settings==false){
+            if(!is_settings){
                 getSupportFragmentManager()
                         .beginTransaction()
                         .remove(mainFragment)
@@ -57,8 +54,19 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+
+        content.getViewTreeObserver()
+                .addOnPreDrawListener(() -> {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return true;
+                });
+
         rasp.setOnClickListener(view -> {
-            if(is_settings==true){
+            if(is_settings){
                 getSupportFragmentManager()
                         .beginTransaction()
                         .remove(settFragment)

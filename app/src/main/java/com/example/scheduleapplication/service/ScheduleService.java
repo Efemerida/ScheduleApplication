@@ -15,7 +15,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ScheduleService {
@@ -23,9 +22,9 @@ public class ScheduleService {
     private static ScheduleService scheduleService;
 
     public static String defaultLink = "/rasp/group/14";
-    private static String BASE_LINK = "https://rasp.sstu.ru";
+    private static final String BASE_LINK = "https://rasp.sstu.ru";
 
-    private GroupService groupService;
+    private final GroupService groupService;
 
 
     private ScheduleService(Context context){groupService = new GroupService(context);}
@@ -40,7 +39,7 @@ public class ScheduleService {
     public List<Day> getContent(){
         Document doc;
         try {
-            String link = "";
+            String link;
             String linkTmp = groupService.getLink();
             if(linkTmp==null) link = BASE_LINK + defaultLink;
             else link = BASE_LINK + linkTmp;
@@ -88,41 +87,47 @@ public class ScheduleService {
                 daysList.add(dayTmp);
             }
         }
-
         return daysList;
     }
 
     private List<Day> insertIntoDate(List<Day> days) {
+
         List<Day> daysResult = new ArrayList<>();
-        int firstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
-
         LocalDate date = LocalDate.now();
-        if(firstDayOfWeek<date.getDayOfMonth()){
-            while (date.getDayOfMonth()!=firstDayOfWeek) date = date.minusDays(1);
+        while (date.getDayOfWeek().getValue()!=1){
+            date = date.minusDays(1);
         }
-        else while (date.getDayOfMonth()!=firstDayOfWeek) date = date.plusDays(1);
-
         String month = String.valueOf(date.getMonthValue());
         if(date.getMonthValue()<10) month = "0" + month;
 
         boolean flag = false;
         int j = 1;
-        for (int i = 0; i < 12; i++) {
-            if (!flag) {
-                String day = String.valueOf(date.getDayOfMonth());
-                if(date.getDayOfMonth() < 10) day = "0" + day;
-                String stringDate = day + "." + month;
-                if (stringDate.equals(days.get(0).getDate())) {
-                    flag = true;
-                    daysResult.add(days.get(0));
+        if(days.size()>0) {
+            for (int i = 0; i < 12; i++) {
+                if (!flag) {
+                    String day = String.valueOf(date.getDayOfMonth());
+                    if (date.getDayOfMonth() < 10) day = "0" + day;
+                    String stringDate = day + "." + month;
+                    if (stringDate.equals(days.get(0).getDate())) {
+                        flag = true;
+                        daysResult.add(days.get(0));
+                    } else {
+                        date = date.plusDays(1);
+                        daysResult.add(new Day());
+                    }
                 } else {
-                    date = date.plusDays(1);
-                    daysResult.add(new Day());
+                    if (days.size() == 6 && i >= 6) {
+                        daysResult.add(new Day());
+                    } else {
+                        daysResult.add(days.get(j));
+                        j++;
+                    }
                 }
             }
-            else {
-                daysResult.add(days.get(j));
-                j++;
+        }
+        else {
+            for (int i = 0; i < 12; i++) {
+                daysResult.add(new Day());
             }
         }
         return daysResult;

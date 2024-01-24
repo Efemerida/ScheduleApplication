@@ -7,5 +7,8 @@
     <style name="Theme.ScheduleApplication.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault.DayNight">
         <item name="appWidgetRadius">@android:dimen/system_app_widget_background_radius</item>
         <item name="appWidgetInnerRadius">@android:dimen/system_app_widget_inner_radius</item>
+        <item name="android:windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/arrow</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
     </style>
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="800dp"
-    android:background="#3E3D3D">
+    android:background="#FFFFFF">
 
     <!--    <ListView-->
     <!--        android:id="@+id/list_list"-->
@@ -36,7 +36,7 @@
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#3E3D3D"
+        android:background="@drawable/background_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
