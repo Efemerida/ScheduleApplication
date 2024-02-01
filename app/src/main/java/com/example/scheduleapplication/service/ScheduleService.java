@@ -13,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,8 +98,6 @@ public class ScheduleService {
         while (date.getDayOfWeek().getValue()!=1){
             date = date.minusDays(1);
         }
-        String month = String.valueOf(date.getMonthValue());
-        if(date.getMonthValue()<10) month = "0" + month;
 
         boolean flag = false;
         int j = 1;
@@ -107,18 +106,24 @@ public class ScheduleService {
                 if (!flag) {
                     String day = String.valueOf(date.getDayOfMonth());
                     if (date.getDayOfMonth() < 10) day = "0" + day;
+                    String month = String.valueOf(date.getMonthValue());
+                    if(date.getMonthValue()<10) month = "0" + month;
                     String stringDate = day + "." + month;
                     if (stringDate.equals(days.get(0).getDate())) {
+                        Log.d("taggg", "tttt " + i);
                         flag = true;
                         daysResult.add(days.get(0));
                     } else {
                         date = date.plusDays(1);
-                        daysResult.add(new Day());
+                        if(date.getDayOfWeek()== DayOfWeek.SUNDAY) i--;
+                        else daysResult.add(new Day());
                     }
                 } else {
                     if (days.size() == 6 && i >= 6) {
                         daysResult.add(new Day());
                     } else {
+                        Log.d("taggg", "tttt " + j + " " + i);
+
                         daysResult.add(days.get(j));
                         j++;
                     }

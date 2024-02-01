@@ -20,29 +20,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/b_nav_rasp"
-        style="@style/Button.White"
-        android:layout_width="202dp"
-        android:layout_height="65dp"
-        android:background="#FFFFFF"
-        android:text="Расписание"
-        android:textColor="#000000"
-        android:theme="@style/Button.White"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/b_nav_set"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/b_nav_set"
-        android:layout_width="208dp"
-        android:layout_height="65dp"
-        android:background="#FFFFFF"
-        android:text="Настройки"
-        android:textColor="#0C0C0C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_navigation_bg"
+        app:constraint_referenced_ids="b_nav_set,b_nav_rasp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -57,5 +39,27 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b_nav_set"
+        android:layout_width="200dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_navigation_bg"
+        android:text="Настройки"
+        android:textColor="#0C0C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/b_nav_rasp"
+        android:layout_width="200dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_navigation_bg"
+        android:text="Расписание"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/b_nav_set"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
